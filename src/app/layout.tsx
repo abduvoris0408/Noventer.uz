@@ -1,7 +1,8 @@
+import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter } from 'next/font/google'
-
+import NextTopLoader from 'nextjs-toploader'
 import './globals.css'
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -21,6 +22,9 @@ const inter = Inter({
 export const metadata: Metadata = {
 	title: 'Noventer',
 	description: 'Noventer is customer service software for the modern world.',
+	icons: {
+		icon: '/favcion.svg',
+	},
 }
 
 export default function RootLayout({
@@ -33,8 +37,12 @@ export default function RootLayout({
 			<body
 				className={`bg-[#0E041D] ${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
 			>
+				<NextTopLoader />
 				<Navbar />
 				{children}
+				<div id='footer'>
+					<Footer />
+				</div>
 			</body>
 		</html>
 	)

@@ -1,9 +1,10 @@
 'use client'
-import { Menu, User } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { LanguageSelector } from './Language-selector'
+import { LanguageSwitcher } from './Language-selector'
 import Sidebar from './Sidebar'
 
 const Navbar: React.FC = () => {
@@ -18,13 +19,43 @@ const Navbar: React.FC = () => {
 		}
 	}, [isMenuOpen])
 
+	const router = useRouter()
+	const pathname = usePathname()
+
+	const handleScrollToFooter = () => {
+		if (pathname !== '/') {
+			router.push('/#footer')
+		} else {
+			const footer = document.getElementById('footer')
+			if (footer) {
+				footer.scrollIntoView({ behavior: 'smooth' })
+			}
+		}
+		if (pathname == '/service') {
+			router.push('/service#footer')
+		} else {
+			const footer = document.getElementById('footer')
+			if (footer) {
+				footer.scrollIntoView({ behavior: 'smooth' })
+			}
+		}
+		if (pathname == '/portfolio') {
+			router.push('/portfolio#footer')
+		} else {
+			const footer = document.getElementById('footer')
+			if (footer) {
+				footer.scrollIntoView({ behavior: 'smooth' })
+			}
+		}
+	}
+
 	return (
 		<div>
-			<div className='bg-[#180e28f9] w-auto h-20 m-2 rounded-md  border-[0.5px] border-white/20 fixed inset-0 z-20 backdrop-blur-md'>
-				<div className='container w-10/12 mx-auto h-full flex items-center justify-between '>
+			<div className='bg-[#180e28f9] w-auto h-20 m-2 rounded-md border-[0.5px] border-white/20 fixed inset-0 z-30 backdrop-blur-md'>
+				<div className='container w-10/12 mx-auto h-full flex items-center justify-between'>
 					<Link href='/' className='flex items-center gap-1'>
 						<Image
-							src='logo.svg'
+							src='/logo.svg'
 							width={150}
 							height={120}
 							alt='logo'
@@ -32,27 +63,37 @@ const Navbar: React.FC = () => {
 					</Link>
 
 					<ul className='hidden md:flex gap-3'>
-						{['Bosh sahifa', 'Portfolio', 'Xizmatlar', 'Aloqa'].map(
-							(item, idx) => (
-								<li
-									key={idx}
-									className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
-								>
-									{item}
-								</li>
-							)
-						)}
+						<Link
+							href='/'
+							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
+						>
+							Bosh sahifa
+						</Link>
+						<Link
+							href='/portfolio'
+							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
+						>
+							Portfolio
+						</Link>
+						<Link
+							href='/service'
+							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
+						>
+							Xizmatlar
+						</Link>
+						<li
+							onClick={handleScrollToFooter}
+							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
+						>
+							Aloqa
+						</li>
 					</ul>
 
 					<div className='flex items-center gap-3'>
-						<LanguageSelector
-							defaultLanguage='en'
-							onChange={language => {
-								console.log(`Language changed to: ${language}`)
-							}}
-						/>
+						<div className='hidden md:flex'>
+							<LanguageSwitcher />
+						</div>
 						<div className='md:hidden flex gap-3'>
-							<User className='text-xl text-white cursor-pointer' />
 							<Menu
 								className='text-xl cursor-pointer text-white'
 								onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -86,6 +127,12 @@ const Navbar: React.FC = () => {
 					</div>
 				</div>
 			)}
+
+			<style jsx>{`
+				.nav-item {
+					@apply relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100;
+				}
+			`}</style>
 		</div>
 	)
 }
