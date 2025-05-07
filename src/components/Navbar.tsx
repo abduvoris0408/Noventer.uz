@@ -1,4 +1,5 @@
 'use client'
+import { useTranslation } from '@/hooks/useTranslation'
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,6 +11,7 @@ import Sidebar from './Sidebar'
 const Navbar: React.FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 	const [isAnimating, setIsAnimating] = useState<boolean>(false)
+	const t = useTranslation()
 
 	useEffect(() => {
 		if (!isMenuOpen) {
@@ -67,25 +69,25 @@ const Navbar: React.FC = () => {
 							href='/'
 							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
 						>
-							Bosh sahifa
+							{t.home}
 						</Link>
 						<Link
 							href='/portfolio'
 							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
 						>
-							Portfolio
+							{t.portfolio}
 						</Link>
 						<Link
 							href='/service'
 							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
 						>
-							Xizmatlar
+							{t.services}
 						</Link>
 						<li
 							onClick={handleScrollToFooter}
 							className='relative text-[16px] px-4 py-2 cursor-pointer font-[Inter] text-white font-semibold rounded-md border-none hover:bg-white/10 shadow-lg overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:rounded-md before:border before:border-gray-400 before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'
 						>
-							Aloqa
+							{t.contact}
 						</li>
 					</ul>
 
@@ -100,7 +102,7 @@ const Navbar: React.FC = () => {
 							/>
 						</div>
 						<button className='hidden md:block px-4 py-2 backdrop-blur-xs bg-white/10 text-white font-[Inter] text-[16px] font-semibold rounded-xl border border-gray-500 shadow-lg transition cursor-pointer relative overflow-hidden hover:border-gray-300 before:absolute before:inset-0 before:border before:border-gray-400 before:rounded-xl before:opacity-0 before:transition-opacity before:duration-500 hover:before:opacity-100'>
-							Loyiha bormi ?
+							{t.project}
 						</button>
 					</div>
 				</div>
