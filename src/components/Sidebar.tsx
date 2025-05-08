@@ -164,7 +164,6 @@
 // export default Sidebar
 'use client'
 
-import { useTranslation } from '@/hooks/useTranslation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Briefcase, ChevronRight, Home, Phone, Settings, X } from 'lucide-react'
 import Image from 'next/image'
@@ -186,7 +185,6 @@ const menuItems = [
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 	const [activeItem, setActiveItem] = useState(0)
-	const { t } = useTranslation()
 
 	useEffect(() => {
 		const handleEscKey = (e: KeyboardEvent) => {
@@ -282,7 +280,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 												onClose()
 											}
 										}}
-										aria-label={t[item.nameKey]}
+										aria-label={item.nameKey}
 									>
 										<div className='flex items-center gap-3'>
 											<span
@@ -294,7 +292,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 											>
 												<item.icon size={18} />
 											</span>
-											{t[item.nameKey]}
+											{item.nameKey}
 										</div>
 										<motion.span
 											animate={{
@@ -318,9 +316,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 					<LanguageSwitcher />
 
 					<div className='mt-auto pt-4 border-t border-gray-700/30'>
-						<div className='flex justify-center space-x-4'>
-							{/* Add your social links here */}
-						</div>
+						<div className='flex justify-center space-x-4'></div>
 						<p className='text-gray-500 text-xs text-center mt-4'>
 							© {new Date().getFullYear()} Noventer Team
 						</p>
