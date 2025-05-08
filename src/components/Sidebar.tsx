@@ -1,67 +1,10 @@
-// import { X } from 'lucide-react'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import React from 'react'
-
-// interface SidebarProps {
-// 	isOpen: boolean
-// 	onClose: () => void
-// }
-
-// const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-// 	return (
-// 		<div
-// 			className={`fixed inset-0 z-30 transition-transform transform border-r border-gray-300/20 bg-[#0E041D] w-80 p-5 shadow-lg ${
-// 				isOpen ? 'translate-x-0' : '-translate-x-full'
-// 			}`}
-// 		>
-// 			<div className='flex justify-between mt-4 pb-[18px]'>
-// 				<Link href='/' className='flex  items-center gap-1'>
-// 					<Image src='logo.svg' width={150} height={100} alt='logo' />
-// 				</Link>
-// 				<button
-// 					onClick={onClose}
-// 					className='text-gray-600 text-xl'
-// 					aria-label='Yopish'
-// 				>
-// 					<X />
-// 				</button>
-// 			</div>
-// 			<ul className='mt-5 space-y-3'>
-// 				{['Bosh sahifa', 'Portfolio', 'Xizmatlar', 'Aloqa'].map(
-// 					(item, idx) => (
-// 						<li
-// 							key={idx}
-// 							className='text-lg cursor-pointer font-[Inter] hover:bg-gray-100 p-2 rounded-md text-white'
-// 						>
-// 							{item}
-// 						</li>
-// 					)
-// 				)}
-// 			</ul>
-// 		</div>
-// 	)
-// }
-
-// export default Sidebar
 'use client'
 
+import { useTranslation } from '@/hooks/useTranslation'
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-	Briefcase,
-	ChevronRight,
-	Github,
-	Globe,
-	Home,
-	Instagram,
-	Linkedin,
-	Phone,
-	Settings,
-	X,
-} from 'lucide-react'
+import { Briefcase, ChevronRight, Home, Phone, Settings, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import type React from 'react'
 import { useEffect, useState } from 'react'
 
 interface SidebarProps {
@@ -70,10 +13,10 @@ interface SidebarProps {
 }
 
 const menuItems = [
-	{ name: 'Bosh sahifa', icon: Home, href: '/' },
-	{ name: 'Portfolio', icon: Briefcase, href: '/portfolio' },
-	{ name: 'Xizmatlar', icon: Settings, href: '/service' },
-	{ name: 'Aloqa', icon: Phone, href: '#footer' },
+	{ nameKey: 'home', icon: Home, href: '/' },
+	{ nameKey: 'portfolio', icon: Briefcase, href: '/portfolio' },
+	{ nameKey: 'services', icon: Settings, href: '/service' },
+	{ nameKey: 'contact', icon: Phone, href: '#footer' },
 ]
 
 const languages = ['UZ', 'EN']
@@ -81,6 +24,7 @@ const languages = ['UZ', 'EN']
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 	const [activeItem, setActiveItem] = useState(0)
 	const [selectedLanguage, setSelectedLanguage] = useState('UZ')
+	const { language, setLanguage, t } = useTranslation()
 
 	useEffect(() => {
 		const handleEscKey = (e: KeyboardEvent) => {
@@ -91,7 +35,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
 		window.addEventListener('keydown', handleEscKey)
 
-		// Prevent scrolling when sidebar is open
 		if (isOpen) {
 			document.body.style.overflow = 'hidden'
 		} else {
@@ -106,7 +49,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
 	return (
 		<>
-			{/* Backdrop overlay */}
 			<AnimatePresence>
 				{isOpen && (
 					<motion.div
@@ -121,7 +63,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 				)}
 			</AnimatePresence>
 
-			{/* Sidebar */}
 			<motion.div
 				className='fixed inset-y-0 left-0 z-30 w-80 border-r border-gray-300/20 bg-gradient-to-b from-[#0E041D] to-[#1A0B2E] shadow-2xl'
 				initial={{ x: '-100%' }}
@@ -133,7 +74,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 				}}
 			>
 				<div className='relative h-full flex flex-col p-5'>
-					{/* Header */}
 					<div className='flex justify-between items-center pb-6 border-b border-gray-700/30'>
 						<Link href='/' className='flex items-center gap-1'>
 							<Image
@@ -148,13 +88,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 							transition={{ duration: 0.2 }}
 							onClick={onClose}
 							className='flex items-center justify-center w-8 h-8 rounded-full bg-gray-800/50 text-gray-400 hover:bg-purple-900/30 hover:text-white'
-							aria-label='Yopish'
+							aria-label={t.close}
 						>
 							<X size={18} />
 						</motion.button>
 					</div>
 
-					{/* Menu Items */}
 					<nav className='mt-8 flex-grow'>
 						<ul className='space-y-1'>
 							{menuItems.map((item, idx) => (
@@ -191,7 +130,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 											>
 												<item.icon size={18} />
 											</span>
-											{item.name}
+											{t[item.nameKey]}{' '}
+											{/* Translate each item */}
 										</div>
 										<motion.span
 											animate={{
@@ -212,10 +152,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 						</ul>
 					</nav>
 
-					{/* Language Switcher */}
 					<div className='mt-4 mb-6'>
 						<p className='text-gray-500 text-xs uppercase font-medium mb-2 px-4'>
-							Til
+							{t.language} {/* Translate 'language' */}
 						</p>
 						<div className='flex bg-gray-800/30 rounded-lg p-1'>
 							{languages.map(lang => (
@@ -226,7 +165,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 											? 'bg-purple-700/50 text-white'
 											: 'text-gray-400 hover:text-white'
 									}`}
-									onClick={() => setSelectedLanguage(lang)}
+									onClick={() => {
+										setSelectedLanguage(lang)
+										setLanguage(lang) // Update language in context
+									}}
 								>
 									{lang}
 								</button>
@@ -234,43 +176,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 						</div>
 					</div>
 
-					{/* Footer with Social Links */}
 					<div className='mt-auto pt-4 border-t border-gray-700/30'>
 						<div className='flex justify-center space-x-4'>
-							<motion.a
-								href='https://github.com'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='w-9 h-9 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:bg-purple-900/30 hover:text-white transition-colors duration-200'
-								whileHover={{ y: -3 }}
-							>
-								<Github size={18} />
-							</motion.a>
-							<motion.a
-								href='https://linkedin.com'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='w-9 h-9 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:bg-purple-900/30 hover:text-white transition-colors duration-200'
-								whileHover={{ y: -3 }}
-							>
-								<Linkedin size={18} />
-							</motion.a>
-							<motion.a
-								href='https://instagram.com'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='w-9 h-9 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:bg-purple-900/30 hover:text-white transition-colors duration-200'
-								whileHover={{ y: -3 }}
-							>
-								<Instagram size={18} />
-							</motion.a>
-							<motion.a
-								href='#'
-								className='w-9 h-9 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:bg-purple-900/30 hover:text-white transition-colors duration-200'
-								whileHover={{ y: -3 }}
-							>
-								<Globe size={18} />
-							</motion.a>
+							{/* Add your social links here */}
 						</div>
 						<p className='text-gray-500 text-xs text-center mt-4'>
 							© {new Date().getFullYear()} Noventer Team

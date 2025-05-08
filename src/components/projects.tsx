@@ -33,7 +33,7 @@ const Projects = () => {
 	const projects = tProjects.items
 
 	return (
-		<div className='py-20'>
+		<div>
 			<div className='container mx-auto w-10/12'>
 				<h2 className='text-white text-4xl font-bold text-center mb-2 font-[Inter]'>
 					{tProjects.title}
