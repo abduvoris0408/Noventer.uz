@@ -2,6 +2,7 @@ import { useLanguage } from '@/context/LanguageContext'
 
 const translations = {
 	en: {
+		close: 'Close',
 		home: 'Home',
 		portfolio: 'Portfolio',
 		services: 'Services',
@@ -229,6 +230,7 @@ const translations = {
 	},
 
 	uz: {
+		close: 'Yopish',
 		home: 'Bosh sahifa',
 		portfolio: 'Portfolio',
 		services: 'Xizmatlar',
