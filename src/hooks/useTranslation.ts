@@ -134,6 +134,13 @@ const translations = {
 			title3: 'is uniquely important',
 			title4: 'in our approach!',
 		},
+		portfolio11: {
+			title1: 'Throughout our experience',
+			title2: 'of various sizes',
+			title3: 'IT projects',
+			title4: 'we were able to launch them!',
+		},
+
 		footer: {
 			title: 'Contact Us',
 			subtitle: 'Let`s talk about how to bring your project to life.',
@@ -245,7 +252,12 @@ const translations = {
 		big_projects: 'Yirik loyihalar',
 		service_types: 'Xizmat turlari',
 		security: 'Xavfsizlik',
-
+		portfolio11: {
+			title1: 'Tajribamiz davomida',
+			title2: 'turli xil hajmdagi',
+			title3: 'IT loyihalarini',
+			title4: 'ishga tushira oldik!',
+		},
 		services_list1: {
 			title: 'Xizmat turlari',
 			subtitle:

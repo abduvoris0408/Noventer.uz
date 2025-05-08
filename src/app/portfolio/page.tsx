@@ -1,5 +1,6 @@
 'use client'
 import Projects from '@/components/projects'
+import { useTranslation } from '@/hooks/useTranslation'
 import { motion } from 'framer-motion'
 
 import Image from 'next/image'
@@ -30,6 +31,7 @@ const imageVariants = {
 }
 
 export default function Portfoliopage() {
+	const t = useTranslation()
 	return (
 		<div>
 			<div className='py-10 flex items-center justify-center'>
@@ -43,16 +45,16 @@ export default function Portfoliopage() {
 							viewport={{ once: true, amount: 0.3 }}
 						>
 							<h1 className='text-5xl md:text-6xl font-bold font-[Inter] text-white'>
-								Tajribamiz davomida
+								{t.portfolio11.title1}
 							</h1>
 							<h2 className='text-4xl md:text-5xl font-bold text-white font-[Inter]'>
-								turli xil hajmdagi
+								{t.portfolio11.title2}
 							</h2>
 							<h2 className='text-4xl md:text-5xl font-bold text-[#7c3aed] font-[Inter]'>
-								IT loyihalarini
+								{t.portfolio11.title3}
 							</h2>
 							<h2 className='text-4xl md:text-5xl font-bold text-white font-[Inter]'>
-								ishga tushira oldik
+								{t.portfolio11.title4}
 							</h2>
 						</motion.div>
 
