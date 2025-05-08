@@ -458,10 +458,11 @@ const translations = {
 			],
 		},
 	},
-}
+} as const
 
 export function useTranslation() {
 	const { language } = useLanguage()
+
 	const t = translations[language as keyof typeof translations]
 
 	return t

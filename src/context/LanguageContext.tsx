@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 type LanguageContextType = {
 	language: string
@@ -15,7 +15,19 @@ export const LanguageProvider = ({
 }: {
 	children: React.ReactNode
 }) => {
-	const [language, setLanguage] = useState('uz')
+	const [language, setLanguageState] = useState('uz')
+
+	useEffect(() => {
+		const savedLanguage = localStorage.getItem('lang')
+		if (savedLanguage) {
+			setLanguageState(savedLanguage)
+		}
+	}, [])
+
+	const setLanguage = (lang: string) => {
+		setLanguageState(lang)
+		localStorage.setItem('lang', lang)
+	}
 
 	return (
 		<LanguageContext.Provider value={{ language, setLanguage }}>
